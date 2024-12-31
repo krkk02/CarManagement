@@ -15,7 +15,7 @@ namespace CarManagement.Services
             _context = context;
         }
 
-        public List<CarDto> GetAllCars(string? makeFilter, string? modelFilter, int? productionYear, string? licensePlateFilter)
+        public List<CarDto> GetAllCars(string? makeFilter, string? modelFilter, int? garageId, int? fromYear, int? toYear, string? licensePlateFilter)
         {
             var query = _context.Cars
                 .Include(c => c.CarGarages)
@@ -28,8 +28,14 @@ namespace CarManagement.Services
             if (!string.IsNullOrWhiteSpace(modelFilter))
                 query = query.Where(c => c.Model == modelFilter);
 
-            if (productionYear.HasValue)
-                query = query.Where(c => c.ProductionYear == productionYear.Value);
+            if (garageId.HasValue)
+                query = query.Where(c => c.CarGarages.Any(cg => cg.GarageId == garageId.Value));
+
+            if (fromYear.HasValue)
+                query = query.Where(c => c.ProductionYear >= fromYear.Value);
+
+            if (toYear.HasValue)
+                query = query.Where(c => c.ProductionYear <= toYear.Value);
 
             if (!string.IsNullOrWhiteSpace(licensePlateFilter))
                 query = query.Where(c => c.LicensePlate == licensePlateFilter);

@@ -19,10 +19,12 @@ namespace CarManagement.Controllers
         public IActionResult GetAll(
             [FromQuery] string? make,
             [FromQuery] string? model,
-            [FromQuery] int? productionYear,
+            [FromQuery] int? garageId,
+            [FromQuery] int? fromYear,
+            [FromQuery] int? toYear,
             [FromQuery] string? licensePlate)
         {
-            var cars = _carService.GetAllCars(make, model, productionYear, licensePlate);
+            var cars = _carService.GetAllCars(make, model, garageId, fromYear, toYear, licensePlate);
             return Ok(cars);
         }
 

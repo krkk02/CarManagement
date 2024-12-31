@@ -4,7 +4,8 @@
 
 namespace CarManagement.Migrations
 {
-    /// <inheritdoc />
+    
+    // <inheritdoc />
     public partial class CarAdd : Migration
     {
         /// <inheritdoc />
