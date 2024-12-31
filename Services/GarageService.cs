@@ -15,20 +15,24 @@ namespace CarManagement.Services
             _context = context;
         }
 
-        public List<GarageDto> GetAllGarages(string? locationFilter)
+        public List<GarageDto> GetAllGarages(string? cityFilter)
         {
             var query = _context.Garages.AsQueryable();
-            if (!string.IsNullOrEmpty(locationFilter))
-                query = query.Where(w => w.City == locationFilter);
+
+            if (!string.IsNullOrEmpty(cityFilter))
+            {
+                string cityFilters = cityFilter.ToLower();
+                query = query.Where(g => g.City.ToLower().Contains(cityFilters));
+            }
 
             return query
-                .Select(w => new GarageDto
+                .Select(g => new GarageDto
                 {
-                    Id = w.Id,
-                    Name = w.Name,
-                    Location = w.Location,
-                    City = w.City,
-                    Capacity = w.Capacity
+                    Id = g.Id,
+                    Name = g.Name,
+                    Location = g.Location,
+                    City = g.City,
+                    Capacity = g.Capacity
                 })
                 .ToList();
         }

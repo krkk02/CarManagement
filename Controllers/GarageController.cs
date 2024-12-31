@@ -15,9 +15,9 @@ namespace CarManagement.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll([FromQuery] string? location)
+        public IActionResult GetAll([FromQuery] string? city)
         {
-            var garages = _garageService.GetAllGarages(location);
+            var garages = _garageService.GetAllGarages(city);
             return Ok(garages);
         }
 
