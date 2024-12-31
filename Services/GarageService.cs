@@ -47,7 +47,7 @@ namespace CarManagement.Services
             };
         }
 
-        public GarageDto? CreateGarage(GarageDto dto)
+        public GarageDto CreateGarage(GarageDto dto)
         {
             if (string.IsNullOrWhiteSpace(dto.Name) ||
                 string.IsNullOrWhiteSpace(dto.City) ||
